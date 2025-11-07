@@ -1,18 +1,12 @@
-// uart_tx.v
-// Simple UART Transmitter
 module uart_tx(
-    input           clk,        // System clock (27MHz)
-    input           rst_n,      // Active-low reset
-    input [7:0]     data_in,    // 8-bit data to send
-    input           send,       // Pulse to start sending
-    output  reg     tx_pin,     // Serial output pin
-    output  reg     busy        // 1 if currently sending
+    input           clk,       
+    input           rst_n,      
+    input [7:0]     data_in,    
+    input           send,       
+    output  reg     tx_pin,     
+    output  reg     busy        
 );
 
-    // --- Parameters ---
-    // We want 9600 baud.
-    // System clock is 27,000,000 Hz.
-    // Ticks per bit = 27,000,000 / 9600 = 2813 (rounded)
     parameter CLKS_PER_BIT = 2813;
 
     // --- State Machine ---
@@ -22,9 +16,9 @@ module uart_tx(
     localparam STATE_STOP = 3'b100;
 
     reg [2:0] state = STATE_IDLE;
-    reg [11:0] clk_counter = 0; // Counter for bit timing
-    reg [3:0] bit_index = 0;   // Index for 8 data bits
-    reg [7:0] data_reg = 0;    // Internal register for data
+    reg [11:0] clk_counter = 0;
+    reg [3:0] bit_index = 0;  
+    reg [7:0] data_reg = 0;   
 
     // --- Logic ---
     always @(posedge clk or negedge rst_n) begin
@@ -86,4 +80,5 @@ module uart_tx(
             endcase
         end
     end
+
 endmodule
