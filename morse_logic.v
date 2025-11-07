@@ -2,15 +2,15 @@
 module morse_logic(
     input           clk,
     input           rst_n,
-    input           ms_tick,      // 1ms pulse
-    input           key_state,    // Synchronized key input
+    input           ms_tick,    
+    input           key_state,    
     
-    output  reg     new_dot,      // 1-cycle pulse
-    output  reg     new_dash,     // 1-cycle pulse
-    output  reg     gap_letter,   // 1-cycle pulse
-    output  reg     gap_word,     // 1-cycle pulse
-    output  reg     gap_line,     // 1-cycle pulse
-    output  reg     long_press_clear // NEW: 1-cycle pulse for clear
+    output  reg     new_dot,    
+    output  reg     new_dash,  
+    output  reg     gap_letter,   
+    output  reg     gap_word,  
+    output  reg     gap_line,    
+    output  reg     long_press_clear 
 );
 
     // Arduino Timings
@@ -78,7 +78,7 @@ module morse_logic(
                     // --- NEW: Check for long press first ---
                     if (ms_tick && pulse_timer == LONG_PRESS) begin
                         long_press_clear <= 1;
-                        state <= S_IDLE; // Go to idle, wait for key release
+                        state <= S_IDLE; 
                     end
                     // --- OLD: Check for key release ---
                     else if (key_released) begin
@@ -119,5 +119,6 @@ module morse_logic(
             endcase
         end
     end
+
 
 endmodule
